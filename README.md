@@ -36,6 +36,6 @@
 1. Open your game.
 2. Start Xeno or Solara executor.
 3. Create a new tab.
-4. Paste this: **`loadstring(game:HttpGet('https://raw.githubusercontent.com/JustYusufi/SouthBronxScript/refs/heads/main/Script/ESP_NOCLIP'))()
-`**
+4. Paste this: 
+**`loadstring(game:HttpGet('https://raw.githubusercontent.com/JustYusufi/SouthBronxScript/refs/heads/main/Script/ESP_NOCLIP'))()`**
 5. Enjoy!
