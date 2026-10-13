@@ -1,0 +1,168 @@
+-- Place this LocalScript inside StarterPlayer.StarterPlayerScripts
+local Workspace = game:GetService("Workspace")
+local UserInputService = game:GetService("UserInputService")
+
+local charactersFolder = Workspace:WaitForChild("Characters")
+
+-- State variables
+local visualsEnabled = true
+local environmentCollisionEnabled = true
+
+-- Table to remember original collision states of environment parts
+local originalCollisions = {}
+
+local function setupCharacter(model: Model)
+	if model:FindFirstChild("CharacterHighlightBox") then
+		return
+	end
+	
+	-- 1. Create Highlight Box
+	local highlight = Instance.new("Highlight")
+	highlight.Name = "CharacterHighlightBox"
+	highlight.Adornee = model
+	highlight.Enabled = visualsEnabled
+	highlight.FillColor = Color3.fromRGB(0, 255, 128)
+	highlight.FillTransparency = 1
+	highlight.OutlineColor = Color3.fromRGB(0, 255, 128)
+	highlight.OutlineTransparency = 0
+	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+	highlight.Parent = model
+
+	-- 2. Create Text Above Character
+	local targetPart = model:FindFirstChild("Head") 
+		or model.PrimaryPart 
+		or model:FindFirstChildWhichIsA("BasePart")
+
+	if targetPart then
+		local billboard = Instance.new("BillboardGui")
+		billboard.Name = "CharacterNameTag"
+		billboard.Adornee = targetPart
+		billboard.Size = UDim2.new(0, 250, 0, 50)
+		billboard.StudsOffset = Vector3.new(0, 3, 0)
+		billboard.AlwaysOnTop = true
+		billboard.Enabled = visualsEnabled
+		
+		local nameLabel = Instance.new("TextLabel")
+		nameLabel.Size = UDim2.new(1, 0, 1, 0)
+		nameLabel.BackgroundTransparency = 1
+		nameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		nameLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+		nameLabel.TextStrokeTransparency = 0
+		nameLabel.Font = Enum.Font.SourceSansBold
+		nameLabel.TextSize = 20
+		nameLabel.Parent = billboard
+
+		billboard.Parent = model
+
+		local humanoid = model:FindFirstChildOfClass("Humanoid")
+		
+		local function updateText()
+			if humanoid then
+				local currentHealth = math.floor(humanoid.Health + 0.5)
+				nameLabel.Text = string.format("%s | %d", model.Name, currentHealth)
+			else
+				nameLabel.Text = model.Name
+			end
+		end
+
+		updateText()
+
+		if humanoid then
+			humanoid:GetPropertyChangedSignal("Health"):Connect(updateText)
+		end
+	end
+end
+
+-- Toggle Visuals (P Key)
+local function toggleVisuals()
+	visualsEnabled = not visualsEnabled
+	
+	for _, child in ipairs(charactersFolder:GetChildren()) do
+		if child:IsA("Model") then
+			local highlight = child:FindFirstChild("CharacterHighlightBox")
+			if highlight then highlight.Enabled = visualsEnabled end
+			
+			local billboard = child:FindFirstChild("CharacterNameTag")
+			if billboard then billboard.Enabled = visualsEnabled end
+		end
+	end
+end
+
+-- Helper to check if a part is likely a floor
+local function isFloor(part: BasePart)
+	local nameLower = part.Name:lower()
+	-- If it's explicitly named floor, ground, terrain, or baseplate, keep it solid
+	if nameLower:find("floor") or nameLower:find("ground") or nameLower:find("terrain") or nameLower:find("baseplate") then
+		return true
+	end
+	
+	-- Alternatively, check if the top surface is flat and facing upward (normal vector pointing straight up)
+	local upVector = part.CFrame.UpVector
+	if math.abs(upVector.Y) > 0.95 then
+		-- Check if it's positioned relatively low or wide (flat surface)
+		if part.Size.Y <= 6 then
+			return true
+		end
+	end
+	
+	return false
+end
+
+-- Toggle Environment Collision (Z Key)
+local function toggleEnvironmentCollision()
+	environmentCollisionEnabled = not environmentCollisionEnabled
+	
+	for _, desc in ipairs(Workspace:GetDescendants()) do
+		if desc:IsA("BasePart") then
+			-- Skip characters and anything inside the characters folder
+			if not desc:IsDescendantOf(charactersFolder) and desc.Name ~= "HumanoidRootPart" then
+				
+				-- Check if it's a floor
+				if isFloor(desc) then
+					-- Leave floors alone so players don't fall
+					continue
+				end
+				
+				if not environmentCollisionEnabled then
+					-- Store original state before disabling
+					if originalCollisions[desc] == nil then
+						originalCollisions[desc] = desc.CanCollide
+					end
+					desc.CanCollide = false
+				else
+					-- Restore original state
+					if originalCollisions[desc] ~= nil then
+						desc.CanCollide = originalCollisions[desc]
+					else
+						desc.CanCollide = true
+					end
+				end
+			end
+		end
+	end
+end
+
+-- Keybind Listener
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+	if gameProcessedEvent then return end
+	
+	if input.KeyCode == Enum.KeyCode.P then
+		toggleVisuals()
+	elseif input.KeyCode == Enum.KeyCode.Z then
+		toggleEnvironmentCollision()
+	end
+end)
+
+-- Apply to characters already in the folder
+for _, child in ipairs(charactersFolder:GetChildren()) do
+	if child:IsA("Model") then
+		setupCharacter(child)
+	end
+end
+
+-- Apply to any characters added to the folder dynamically later
+charactersFolder.ChildAdded:Connect(function(child)
+	if child:IsA("Model") then
+		setupCharacter(child)
+	end
+end)
