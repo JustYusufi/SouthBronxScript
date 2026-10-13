@@ -5,7 +5,7 @@ ESP.txt: Most basic one and the first version, just character outlines.
 ESP_TEXT: Second version, character outlines and player names.
 ESP_HEALTH: Third version, character outlines, player names and player health.
 ESP_NOCLIP: Fourth version, character outlines, player names, player health, no clip through walls. Added keybinds.
-ESP_NOCLIP_AIMBOT: Fifth version, character outlines, player names, player health, no clip through walls and aim bot. Hasnt been tested yet
+ESP_NOCLIP_AIMBOT: Fifth version, character outlines, player names, player health, no clip through walls and aim bot.
 
 
 
