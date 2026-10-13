@@ -1,0 +1,42 @@
+-- Place this LocalScript inside StarterPlayer.StarterPlayerScripts
+local Workspace = game:GetService("Workspace")
+
+-- Access the existing Characters folder in the Workspace
+local charactersFolder = Workspace:WaitForChild("Characters")
+
+local function createBoundingBox(model: Model)
+	-- Avoid creating duplicates if the script runs more than once
+	if model:FindFirstChild("CharacterHighlightBox") then
+		return
+	end
+	
+	-- Create a Highlight object to outline the model visible through everything
+	local highlight = Instance.new("Highlight")
+	highlight.Name = "CharacterHighlightBox"
+	highlight.Adornee = model
+	
+	-- Styling properties
+	highlight.FillColor = Color3.fromRGB(0, 255, 128)
+	highlight.FillTransparency = 1 -- Set to 1 to make the inside completely transparent (wireframe/box look)
+	highlight.OutlineColor = Color3.fromRGB(0, 255, 128) -- Neon green outline color
+	highlight.OutlineTransparency = 0 -- Fully opaque outline
+	
+	-- This property makes it visible through walls and parts
+	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+	
+	highlight.Parent = model
+end
+
+-- Apply to characters already in the folder
+for _, child in ipairs(charactersFolder:GetChildren()) do
+	if child:IsA("Model") then
+		createBoundingBox(child)
+	end
+end
+
+-- Apply to any characters added to the folder dynamically later
+charactersFolder.ChildAdded:Connect(function(child)
+	if child:IsA("Model") then
+		createBoundingBox(child)
+	end
+end)
