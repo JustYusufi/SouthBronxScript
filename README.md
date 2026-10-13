@@ -33,7 +33,8 @@
 
 ## ⚙️ Installation & Setup
 
-1. Open your game in **Roblox Studio**.
-2. Navigate to **`StarterPlayer`** > **`StarterPlayerScripts`**.
-3. Create a new **`LocalScript`**.
-4. Paste the complete Luau script into the script container and test!
+1. Open your game.
+2. Start Xeno or Solara executor.
+3. Create a new tab.
+4. Paste this: **`https://raw.githubusercontent.com/JustYusufi/SouthBronxScript/refs/heads/main/Script/ESP_NOCLIP`**
+5. Enjoy!
