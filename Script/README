@@ -9,6 +9,6 @@ ESP_NOCLIP_AIMBOT: Fifth version, character outlines, player names, player healt
 ESP_NOCLIP_AIMBOT_TOGGLE: Sixth version, character outlines, player names, player health, noclip through walls and aimbot. Added aimbot keybind.
 ESP_NOCLIP_AIMBOT_TPWALK: Seventh version, character outlines, player names, player health, noclip through walls, aimbot and tpwalk to walk faster.
 NOANTICHEAT: Eightth version, everything before + Anticheat attempt.
-UI: Added UI.
+UI_KEYBINDS: Added UI with customizable keybinds.
 
 "
