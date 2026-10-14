@@ -6,7 +6,8 @@ ESP_TEXT: Second version, character outlines and player names.
 ESP_HEALTH: Third version, character outlines, player names and player health.
 ESP_NOCLIP: Fourth version, character outlines, player names, player health, no clip through walls. Added keybinds.
 ESP_NOCLIP_AIMBOT: Fifth version, character outlines, player names, player health, no clip through walls and aim bot.
-
+ESP_NOCLIP_AIMBOT_TOGGLE: Sixth version, character outlines, player names, player health, noclip through walls and aimbot. Added aimbot keybind.
+ESP_NOCLIP_AIMBOT_TPWALK: Seventh version, character outlines, player names, player health, noclip through walls, aimbot and tpwalk to walk faster.
 
 
 "
