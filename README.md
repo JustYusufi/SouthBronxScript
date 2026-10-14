@@ -10,7 +10,6 @@
 
 </div>
 <img width="945" height="318" alt="image" src="https://github.com/user-attachments/assets/74aeea79-1ffe-4fe3-9da7-c4b3c4cdde6d" />
-
 ---
 
 ## 🌟 Features
