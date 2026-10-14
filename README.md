@@ -2,7 +2,7 @@
 
 # 🚇 South Bronx: The Trenches — Custom Utility Script
 
-[![Roblox Luau](https://img.shields.io/badge/Language-Luau-blue.svg)](https://create.roblox.com/)
+[![Roblox Luau](https://img.shields.io/badge/Language-Luau-blue.svg)]()
 [![Status](https://img.shields.io/badge/Status-Active-success.svg)]()
 [![Platform](https://img.shields.io/badge/Platform-Client--Side-orange.svg)]()
 
