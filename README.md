@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🚇 South Bronx: The Trenches — Custom Utility Script
+# South Bronx: The Trenches — Custom Utility Script
 
 [![Roblox Luau](https://img.shields.io/badge/Language-Luau-blue.svg)]()
 [![Status](https://img.shields.io/badge/Status-Active-success.svg)]()
