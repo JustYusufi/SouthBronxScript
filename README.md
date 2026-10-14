@@ -27,7 +27,7 @@
 | :---: | :--- | :--- |
 | **`P`** | **Toggle ESP** | Enables or disables character highlights and name/health tags. |
 | **`Z`** | **Toggle No-Clip** | Toggles collision off/on for surrounding environment elements. |
-| **`[`** | **Toggle TP-Walk** | Enables or disables TP-Walk. |
+| **`,`** | **Toggle TP-Walk** | Enables or disables TP-Walk. |
 | **`[`** | **Toggle Auto-Lock** | Enables or disables Auto-Lock. |
 | **`Right Mouse Button`** | **Auto-Lock** | Hold down to activate the FOV targeting circle and snap your camera to the closest threat. |
 
