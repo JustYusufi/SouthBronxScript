@@ -6,7 +6,7 @@
 [![Status](https://img.shields.io/badge/Status-Active-success.svg)]()
 [![Platform](https://img.shields.io/badge/Platform-Client--Side-orange.svg)]()
 
-*Your ultimate tactical edge for navigating the streets.*
+*Burasi bizim mahalle anladin?*
 
 </div>
 
